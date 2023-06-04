@@ -27,13 +27,17 @@ class CustomTabBar extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         color: palette.tabBackgroundColor,
+        border: palette.tabBorderColor != null
+            ? Border.all(color: palette.tabBorderColor!)
+            : null,
       ),
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
+        itemCount: tabs.length,
         itemBuilder: (BuildContext context, int i) {
           return _Tab(
-            key: ValueKey("Tab -> ${tabs[index]}"),
-            title: tabs[index],
+            key: ValueKey("Tab -> ${tabs[i]}"),
+            title: tabs[i],
             selected: i == index,
             addPadding: i != tabs.length - 1,
             borderColor: selectedTabBorderColor,
@@ -62,6 +66,7 @@ class _Tab extends StatelessWidget {
   Widget build(BuildContext context) {
     final palette = Theme.of(context).extension<Palette>()!;
     return Container(
+      constraints: const BoxConstraints(minWidth: 102),
       height: 34,
       padding: addPadding ? const EdgeInsets.only(right: 4) : EdgeInsets.zero,
       decoration: BoxDecoration(
@@ -69,18 +74,20 @@ class _Tab extends StatelessWidget {
         color: selected ? palette.selectedTabChipColor : Colors.transparent,
         border: borderColor != null ? Border.all(color: borderColor!) : null,
       ),
-      child: Text(
-        title,
-        textAlign: TextAlign.center,
-        maxLines: 1,
-        softWrap: true,
-        overflow: TextOverflow.ellipsis,
-        style: TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w700,
-          color: selected
-              ? palette.selectedTabTextColor
-              : palette.unselectedTabTextColor,
+      child: Center(
+        child: Text(
+          title,
+          textAlign: TextAlign.center,
+          maxLines: 1,
+          softWrap: true,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w700,
+            color: selected
+                ? palette.selectedTabTextColor
+                : palette.unselectedTabTextColor,
+          ),
         ),
       ),
     );

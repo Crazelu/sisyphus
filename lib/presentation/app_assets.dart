@@ -4,14 +4,15 @@ class AppAssets {
   }
 
   static String searchIcon = _getAssetPath("search");
-  static String avatar = _getAssetPath("avatar");
+  static const String avatar = "assets/icons/avatar.png";
   static String btc = _getAssetPath("btc");
   static String usdt = _getAssetPath("usdt");
   static String clock = _getAssetPath("clock");
   static String expand = _getAssetPath("expand");
-  static String globe = _getAssetPath("globe");
-  static String logo = _getAssetPath("logo");
-  static String menu = _getAssetPath("menu");
+  static const String globe = "assets/icons/globe.png";
+  static const String lightLogo = "assets/icons/logo_dark.png";
+  static const String darkLogo = "assets/icons/logo.png";
+  static const String menu = "assets/icons/menu.png";
   static String dropDown = _getAssetPath("drop_down");
   static String arrowUp = _getAssetPath("arrow_up");
   static String arrowDown = _getAssetPath("arrow_down");

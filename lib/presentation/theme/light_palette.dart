@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sissyphus/presentation/app_assets.dart';
 import 'package:sissyphus/presentation/theme/palette.dart';
 
 class LightPalette implements Palette {
@@ -34,6 +35,10 @@ class LightPalette implements Palette {
   Color get candleStickLossColor => const Color(0xffFF6838);
   @override
   Color get cardColor => const Color(0xffFFFFFF);
+  @override
+  Color? get tabBorderColor => null;
+  @override
+  String get logoPath => AppAssets.lightLogo;
 
   @override
   ThemeExtension<Palette> copyWith() {
@@ -49,5 +54,5 @@ class LightPalette implements Palette {
   }
 
   @override
-  Object get type => LightPalette;
+  Object get type => Palette;
 }
