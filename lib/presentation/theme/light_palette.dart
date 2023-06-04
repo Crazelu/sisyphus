@@ -32,6 +32,8 @@ class LightPalette implements Palette {
   Color get candleStickGainColor => const Color(0xff00C076);
   @override
   Color get candleStickLossColor => const Color(0xffFF6838);
+  @override
+  Color get cardColor => const Color(0xffFFFFFF);
 
   @override
   ThemeExtension<Palette> copyWith() {

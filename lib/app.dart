@@ -17,10 +17,11 @@ class SissyphusApp extends StatelessWidget {
           DarkPalette(),
           DarkVolumeBarTheme(),
         },
+        primarySwatch: Colors.grey,
         colorScheme: const ColorScheme.dark(
           primary: Color(0xffFFFFFF),
           secondary: Color(0xffA7B1BC),
-          background: Color(0xff17181B),
+          background: Color(0xff262932),
         ),
       ),
       theme: ThemeData(
@@ -32,7 +33,7 @@ class SissyphusApp extends StatelessWidget {
         colorScheme: const ColorScheme.light(
           primary: Color(0xff1C2127),
           secondary: Color(0xff737A91),
-          background: Color(0xffFFFFFF),
+          background: Color(0xfff8f8f9),
         ),
       ),
     );

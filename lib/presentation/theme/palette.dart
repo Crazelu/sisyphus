@@ -15,4 +15,5 @@ abstract class Palette extends ThemeExtension<Palette> {
   Color get bottomSheetBackgroundColor;
   Color get candleStickGainColor;
   Color get candleStickLossColor;
+  Color get cardColor;
 }
