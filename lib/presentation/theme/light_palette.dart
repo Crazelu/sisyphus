@@ -36,9 +36,11 @@ class LightPalette implements Palette {
   @override
   Color get cardColor => const Color(0xffFFFFFF);
   @override
+  Color get filterLineColor => const Color(0xff737A91);
+  @override
   Color? get tabBorderColor => null;
   @override
-  String get logoPath => AppAssets.lightLogo;
+  String get logo => AppAssets.lightLogo;
 
   @override
   ThemeExtension<Palette> copyWith() {

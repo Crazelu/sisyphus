@@ -14,6 +14,7 @@ class AppAssets {
   static const String darkLogo = "assets/icons/logo.png";
   static const String menu = "assets/icons/menu.png";
   static String dropDown = _getAssetPath("drop_down");
+  static String dropDownBordered = _getAssetPath("drop_down_bordered");
   static String arrowUp = _getAssetPath("arrow_up");
   static String arrowDown = _getAssetPath("arrow_down");
   static String candleChart = _getAssetPath("candle_chart");

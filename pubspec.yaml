@@ -13,6 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
   gap: ^3.0.0
+  candlesticks: ^2.1.0
 
 
 dev_dependencies:

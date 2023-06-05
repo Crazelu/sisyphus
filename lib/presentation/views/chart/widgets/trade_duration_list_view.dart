@@ -3,41 +3,33 @@ import 'package:gap/gap.dart';
 import 'package:sissyphus/presentation/app_assets.dart';
 import 'package:sissyphus/presentation/theme/palette.dart';
 import 'package:sissyphus/presentation/widgets/custom_icon.dart';
-import 'package:sissyphus/presentation/widgets/custom_tab_bar.dart';
 import 'package:sissyphus/presentation/widgets/custom_text.dart';
 
-class TradingActivitySection extends StatelessWidget {
-  const TradingActivitySection({super.key});
+class TradeDurationListView extends StatefulWidget {
+  const TradeDurationListView({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final palette = Theme.of(context).extension<Palette>()!;
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      color: palette.cardColor,
-      child: Column(
-        children: [
-          const Gap(8),
-          CustomTabBar(
-            tabs: [
-              "Charts",
-              "Orderbook",
-              "Recent trades",
-            ],
-          ),
-          const Gap(16),
-          SizedBox(
-            height: 22,
-            child: const _TradeDurationListView(),
-          )
-        ],
-      ),
-    );
-  }
+  State<TradeDurationListView> createState() => _TradeDurationListViewState();
 }
 
-class _TradeDurationListView extends StatelessWidget {
-  const _TradeDurationListView({super.key});
+class _TradeDurationListViewState extends State<TradeDurationListView> {
+  final List<String> _labels = const ["1H", "2H", "4H", "1D", "1W", "1M"];
+
+  String? _selectedLabel;
+
+  void _setSelectedLabel(String value) {
+    if (_selectedLabel != value) {
+      setState(() {
+        _selectedLabel = value;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    _selectedLabel = _labels.first;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,31 +43,13 @@ class _TradeDurationListView extends StatelessWidget {
           color: Theme.of(context).colorScheme.secondary,
         ),
         const Gap(2),
-        const _DurationChip(
-          label: "1H",
-          selected: false,
-        ),
-        const _DurationChip(
-          label: "2H",
-          selected: false,
-        ),
-        const _DurationChip(
-          label: "4H",
-          selected: false,
-        ),
-        const _DurationChip(
-          label: "1D",
-          selected: true,
-        ),
-        const _DurationChip(
-          label: "1W",
-          selected: false,
-        ),
-        const _DurationChip(
-          label: "1M",
-          selected: false,
-        ),
-        const Gap(4),
+        for (final label in _labels)
+          _DurationChip(
+            label: label,
+            selected: label == _selectedLabel,
+            onPressed: _setSelectedLabel,
+          ),
+        const Gap(8),
         CustomIcon(
           iconPath: AppAssets.dropDown,
           width: 10,
@@ -109,7 +83,7 @@ class _TradeDurationListView extends StatelessWidget {
 
 class _DurationChip extends StatelessWidget {
   final String label;
-  final VoidCallback? onPressed;
+  final Function(String)? onPressed;
   final bool selected;
   final bool disableWidth;
   const _DurationChip({
@@ -125,7 +99,9 @@ class _DurationChip extends StatelessWidget {
     final palette = Theme.of(context).extension<Palette>()!;
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
-      onTap: onPressed,
+      onTap: () {
+        onPressed?.call(label);
+      },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 4),
         width: disableWidth ? null : 40,

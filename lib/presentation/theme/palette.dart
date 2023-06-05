@@ -17,5 +17,6 @@ abstract class Palette extends ThemeExtension<Palette> {
   Color get candleStickLossColor;
   Color get cardColor;
   Color? get tabBorderColor;
-  String get logoPath;
+  String get logo;
+  Color get filterLineColor;
 }

@@ -36,9 +36,11 @@ class DarkPalette implements Palette {
   @override
   Color get cardColor => const Color(0xff17181B);
   @override
+  Color get filterLineColor => const Color(0xffB1B5C3);
+  @override
   Color? get tabBorderColor => const Color(0xff262932);
   @override
-  String get logoPath => AppAssets.darkLogo;
+  String get logo => AppAssets.darkLogo;
 
   @override
   ThemeExtension<Palette> copyWith() {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sissyphus/presentation/theme/palette.dart';
+import 'dart:math' as math;
 
 class CustomTabBar extends StatelessWidget {
   final List<String> tabs;
@@ -18,6 +19,7 @@ class CustomTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final palette = Theme.of(context).extension<Palette>()!;
+    final width = MediaQuery.of(context).size.width;
     return Container(
       width: MediaQuery.of(context).size.width,
       height: 40,
@@ -41,6 +43,8 @@ class CustomTabBar extends StatelessWidget {
             selected: i == index,
             addPadding: i != tabs.length - 1,
             borderColor: selectedTabBorderColor,
+            onPressed: () => onChanged?.call(i),
+            minWidth: math.max(102, (width / tabs.length) * .92),
           );
         },
       ),
@@ -52,41 +56,50 @@ class _Tab extends StatelessWidget {
   final String title;
   final bool selected;
   final bool addPadding;
+  final double minWidth;
   final Color? borderColor;
+  final VoidCallback? onPressed;
 
   const _Tab({
     super.key,
     required this.title,
     required this.selected,
     this.addPadding = false,
+    this.minWidth = 102,
     this.borderColor,
+    this.onPressed,
   });
 
   @override
   Widget build(BuildContext context) {
     final palette = Theme.of(context).extension<Palette>()!;
-    return Container(
-      constraints: const BoxConstraints(minWidth: 102),
-      height: 34,
-      padding: addPadding ? const EdgeInsets.only(right: 4) : EdgeInsets.zero,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        color: selected ? palette.selectedTabChipColor : Colors.transparent,
-        border: borderColor != null ? Border.all(color: borderColor!) : null,
-      ),
-      child: Center(
-        child: Text(
-          title,
-          textAlign: TextAlign.center,
-          maxLines: 1,
-          softWrap: true,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w700,
-            color: selected
-                ? palette.selectedTabTextColor
-                : palette.unselectedTabTextColor,
+    return GestureDetector(
+      onTap: onPressed,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.linearToEaseOut,
+        constraints: BoxConstraints(minWidth: minWidth),
+        height: 34,
+        padding: addPadding ? const EdgeInsets.only(right: 4) : EdgeInsets.zero,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: selected ? palette.selectedTabChipColor : Colors.transparent,
+          border: borderColor != null ? Border.all(color: borderColor!) : null,
+        ),
+        child: Center(
+          child: Text(
+            title,
+            textAlign: TextAlign.center,
+            maxLines: 1,
+            softWrap: true,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
+              color: selected
+                  ? palette.selectedTabTextColor
+                  : palette.unselectedTabTextColor,
+            ),
           ),
         ),
       ),
