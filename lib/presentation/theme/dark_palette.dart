@@ -40,6 +40,10 @@ class DarkPalette implements Palette {
   @override
   Color? get tabBorderColor => const Color(0xff262932);
   @override
+  Color get popupMenuBackgroundColor => const Color(0xff1C2127);
+  @override
+  Color get popupMenuBorderColor => const Color(0xff373B3F);
+  @override
   String get logo => AppAssets.darkLogo;
 
   @override

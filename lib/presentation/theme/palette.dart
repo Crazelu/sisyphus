@@ -19,4 +19,6 @@ abstract class Palette extends ThemeExtension<Palette> {
   Color? get tabBorderColor;
   String get logo;
   Color get filterLineColor;
+  Color get popupMenuBackgroundColor;
+  Color get popupMenuBorderColor;
 }

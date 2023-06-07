@@ -40,6 +40,10 @@ class LightPalette implements Palette {
   @override
   Color? get tabBorderColor => null;
   @override
+  Color get popupMenuBackgroundColor => const Color(0xffFFFFFF);
+  @override
+  Color get popupMenuBorderColor => const Color(0xffCFD9E4);
+  @override
   String get logo => AppAssets.lightLogo;
 
   @override

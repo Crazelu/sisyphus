@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:sissyphus/presentation/app_assets.dart';
 import 'package:sissyphus/presentation/theme/theme_mode_selector.dart';
+import 'package:sissyphus/presentation/views/trade_details/widgets/popup_menu_button.dart';
 import 'package:sissyphus/presentation/widgets/custom_icon.dart';
 
 class CustomAppBar extends AppBar {
@@ -40,12 +41,7 @@ class CustomAppBar extends AppBar {
               onPressed: ThemeModeSelector.toggleMode,
             ),
             const Gap(8),
-            CustomIcon(
-              iconPath: AppAssets.menu,
-              height: 32,
-              width: 32,
-              onPressed: onMenuPressed,
-            ),
+            const CustomPopupMenuButton(),
             const Gap(8),
           ],
         );
