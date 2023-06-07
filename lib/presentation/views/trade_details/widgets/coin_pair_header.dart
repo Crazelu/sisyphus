@@ -18,16 +18,7 @@ class CoinPairHeader extends StatelessWidget {
         children: [
           Row(
             children: [
-              CustomIcon(
-                iconPath: AppAssets.btc,
-                width: 24,
-                height: 24,
-              ),
-              CustomIcon(
-                iconPath: AppAssets.usdt,
-                width: 24,
-                height: 24,
-              ),
+              const _CoinPairIcons(),
               const Gap(8),
               const CustomText(
                 text: "BTC/USDT",
@@ -78,6 +69,35 @@ class CoinPairHeader extends StatelessWidget {
                   color: palette.candleStickGainColor,
                 ),
               ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _CoinPairIcons extends StatelessWidget {
+  const _CoinPairIcons({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 24,
+      width: 44,
+      child: Stack(
+        children: [
+          CustomIcon(
+            iconPath: AppAssets.btc,
+            width: 24,
+            height: 24,
+          ),
+          Positioned(
+            right: 1,
+            child: CustomIcon(
+              iconPath: AppAssets.usdt,
+              width: 24,
+              height: 24,
             ),
           ),
         ],

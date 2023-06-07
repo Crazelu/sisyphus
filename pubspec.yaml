@@ -14,6 +14,8 @@ dependencies:
     sdk: flutter
   gap: ^3.0.0
   candlesticks: ^2.1.0
+  web_socket_client: ^0.1.0-dev.3
+  flutter_riverpod: ^2.3.6
 
 
 dev_dependencies:
