@@ -3,7 +3,9 @@ import 'package:gap/gap.dart';
 import 'package:sissyphus/presentation/theme/palette.dart';
 
 class FilterRow extends StatefulWidget {
-  const FilterRow({super.key});
+  final Function(int) onChanged;
+
+  const FilterRow({super.key, required this.onChanged});
 
   @override
   State<FilterRow> createState() => FilterRowState();
@@ -14,6 +16,7 @@ class FilterRowState extends State<FilterRow> {
 
   void _setIndex(int value) {
     if (_index != value) {
+      widget.onChanged(value);
       setState(() {
         _index = value;
       });

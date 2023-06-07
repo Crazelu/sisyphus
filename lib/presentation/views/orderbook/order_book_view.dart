@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:sissyphus/models/order.dart';
+import 'package:sissyphus/presentation/views/orderbook/widgets/column_header.dart';
 import 'package:sissyphus/presentation/views/orderbook/widgets/filter_row.dart';
+import 'package:sissyphus/presentation/views/orderbook/widgets/order_table.dart';
+import 'package:sissyphus/presentation/views/orderbook/widgets/price_bar.dart';
 import 'package:sissyphus/presentation/views/orderbook/widgets/transaction_count_drop_down.dart';
 
 class OrderBookView extends StatelessWidget {
@@ -15,7 +19,9 @@ class OrderBookView extends StatelessWidget {
           const Gap(24),
           Row(
             children: [
-              const FilterRow(),
+              FilterRow(
+                onChanged: (value) {},
+              ),
               const Spacer(),
               TransactionCountDropDown(
                 counts: const [10, 20, 50],
@@ -23,7 +29,34 @@ class OrderBookView extends StatelessWidget {
               ),
             ],
           ),
+          const Gap(24),
+          const ColumnHeader(),
+          const Gap(12),
+          OrderTable(
+            orders: List.generate(
+              5,
+              (index) => Order(
+                price: "36920.12",
+                amount: "0.758965",
+                total: "28,020.98",
+                isBuy: false,
+              ),
+            ),
+          ),
           const Gap(16),
+          const Pricebar(oldPrice: 36641.20, newPrice: 38641.20),
+          const Gap(28),
+          OrderTable(
+            orders: List.generate(
+              5,
+              (index) => Order(
+                price: "36920.12",
+                amount: "0.758965",
+                total: "28,020.98",
+                isBuy: true,
+              ),
+            ),
+          ),
         ],
       ),
     );
