@@ -69,16 +69,21 @@ class SocketService {
   }
 
   Timer? _timer;
+  final List<Function> _tasks = [];
 
   void _scheduleTask(Function callback) {
+    _tasks.add(callback);
     _timer?.cancel();
 
     _timer = Timer.periodic(
       const Duration(seconds: 1),
       (timer) {
         if ((_socket?.readyState ?? 0) == 1) {
-          callback();
           timer.cancel();
+          for (var task in _tasks) {
+            task();
+          }
+          _tasks.clear();
         }
       },
     );

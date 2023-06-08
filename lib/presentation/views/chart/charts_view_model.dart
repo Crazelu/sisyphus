@@ -24,7 +24,14 @@ class ChartsViewModel {
   late String _currentInterval = _intervals.first.toLowerCase();
   String get currentKlineInterval => _currentInterval;
 
-  final List<String> _intervals = const ["1H", "2H", "4H", "1D", "1W", "1M"];
+  final List<String> _intervals = const [
+    "1H",
+    "2H",
+    "4H",
+    "1D",
+    "1W",
+    "1M",
+  ];
   List<String> get intervals => _intervals;
 
   List<KlineCandle> _olderCandles = [];
@@ -35,11 +42,11 @@ class ChartsViewModel {
   bool _hasFetchedOlderCandles = false;
   DateTime? _endTime;
 
+  String get _subscriptionParam => "$_pair@kline_$_currentInterval";
+
   void _init() {
     _socketService.attachListener(_onData);
-    _socketService.subscribe([
-      "$_pair@kline_$_currentInterval",
-    ]);
+    _socketService.subscribe([_subscriptionParam]);
     _endTime = DateTime.now();
   }
 
@@ -60,12 +67,14 @@ class ChartsViewModel {
   void updateInterval(String interval) {
     _candles.value = [];
     _appendOlderCandles();
-    _socketService.unsubscribe(["$_pair@kline_$_currentInterval"]);
+    final oldIntervalSubscription = _subscriptionParam;
+
     _currentInterval =
         interval == _intervals.last ? interval : interval.toLowerCase();
-    _socketService.subscribe(["$_pair@kline_$_currentInterval"]);
+    _socketService.subscribe([_subscriptionParam]);
     _hasFetchedOlderCandles = false;
     _endTime = DateTime.now();
+    _socketService.unsubscribe([oldIntervalSubscription]);
   }
 
   void _appendOlderCandles() {
