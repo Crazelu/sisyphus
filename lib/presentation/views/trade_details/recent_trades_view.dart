@@ -11,8 +11,8 @@ class RecentTradesView extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       color: Theme.of(context).extension<Palette>()!.cardColor,
-      child: Column(
-        children: const [
+      child: const Column(
+        children: [
           Gap(8 * 8),
           CustomText(
             text: "No Recent Trades",

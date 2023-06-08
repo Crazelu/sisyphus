@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sissyphus/data/socket_service.dart';
+import 'package:sissyphus/data/services/socket_service.dart';
 import 'package:sissyphus/models/trade_data.dart';
 import 'package:sissyphus/utils/app_strings.dart';
 

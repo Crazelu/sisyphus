@@ -32,19 +32,30 @@ class CoinPairHeader extends StatelessWidget {
                     children: [
                       const _CoinPairIcons(),
                       const Gap(8),
-                      CustomText(
-                        text: tradeData.symbol,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
+                      DropdownButton(
+                        dropdownColor: palette.cardColor,
+                        underline: const SizedBox(),
+                        icon: CustomIcon(
+                          iconPath: AppAssets.dropDown,
+                          width: 10,
+                          height: 9,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                        items: [
+                          DropdownMenuItem(
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 16),
+                              child: CustomText(
+                                text: tradeData.symbol,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ],
+                        onChanged: (_) {},
                       ),
-                      const Gap(16),
-                      CustomIcon(
-                        iconPath: AppAssets.dropDown,
-                        width: 10,
-                        height: 9,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      const Gap(16),
+                      const Gap(24),
                       CustomText(
                         text: "\$${tradeData.currentPrice}",
                         fontSize: 18,
@@ -64,7 +75,7 @@ class CoinPairHeader extends StatelessWidget {
                           icon: AppAssets.clock,
                           label: "24h change",
                           description:
-                              "${tradeData.priceChangeIn24H.toStringAsFixed(2)} ${tradeData.isPriceChangeIn24HNeg ? '' : '+'} ${tradeData.percentageChangeIn24H.toStringAsFixed(2)}%",
+                              "${tradeData.priceChangeIn24H.toStringAsFixed(2)} ${tradeData.isPriceChangeIn24HNeg ? '' : '+'} ${tradeData.percentageChangeIn24H.toStringAsFixed(3)}%",
                           color: tradeData.isPriceChangeIn24HNeg
                               ? palette.candleStickLossColor
                               : palette.candleStickGainColor,

@@ -28,6 +28,7 @@ class FullChartsView extends StatelessWidget {
               return ReactiveBuilder<List<KlineCandle>>(
                   value: ref.read(chartsViewModelProvider).candles,
                   builder: (candles) {
+                    if (candles.length < 14) return const SizedBox();
                     return Candlesticks(
                       candles: List<Candle>.from(
                         candles.map(

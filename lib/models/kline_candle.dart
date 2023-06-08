@@ -42,6 +42,18 @@ class KlineCandle {
     );
   }
 
+  factory KlineCandle.fromList(List data) {
+    return KlineCandle(
+      open: double.tryParse(data[1]) ?? 0,
+      close: double.tryParse(data[4]) ?? 0,
+      high: double.tryParse(data[2]) ?? 0,
+      low: double.tryParse(data[3]) ?? 0,
+      volume: double.tryParse(data[5]) ?? 0,
+      date: DateTime.fromMillisecondsSinceEpoch(data[0]),
+      closed: true,
+    );
+  }
+
   KlineCandle update(KlineCandle other) {
     return KlineCandle(
       open: other.open,

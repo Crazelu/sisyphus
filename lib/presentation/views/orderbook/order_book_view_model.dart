@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sissyphus/data/socket_service.dart';
+import 'package:sissyphus/data/services/socket_service.dart';
 import 'package:sissyphus/models/order.dart';
 import 'package:sissyphus/presentation/views/trade_details/trade_details_view_model.dart';
 import 'package:sissyphus/utils/app_strings.dart';
