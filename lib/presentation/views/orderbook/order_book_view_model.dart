@@ -59,11 +59,11 @@ class OrderBookViewModel {
 
     if (eventType == "aggTrade") {
       final order = Order.fromJson(data);
-      _orders.value = [order, ..._orders.value];
+      _orders.value = [order, ..._orders.value.take(99)];
       if (order.isBuy) {
-        _buyOrders.value = [order, ..._buyOrders.value];
+        _buyOrders.value = [order, ..._buyOrders.value.take(99)];
       } else {
-        _sellOrders.value = [order, ..._sellOrders.value];
+        _sellOrders.value = [order, ..._sellOrders.value.take(99)];
       }
     }
   }

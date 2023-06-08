@@ -64,7 +64,7 @@ class CoinPairHeader extends StatelessWidget {
                           icon: AppAssets.clock,
                           label: "24h change",
                           description:
-                              "${tradeData.priceChangeIn24H.toStringAsFixed(2)} ${tradeData.isPriceChangeIn24HNeg ? '-' : '+'} ${tradeData.percentageChangeIn24H.toStringAsFixed(2)}%",
+                              "${tradeData.priceChangeIn24H.toStringAsFixed(2)} ${tradeData.isPriceChangeIn24HNeg ? '' : '+'} ${tradeData.percentageChangeIn24H.toStringAsFixed(2)}%",
                           color: tradeData.isPriceChangeIn24HNeg
                               ? palette.candleStickLossColor
                               : palette.candleStickGainColor,
@@ -178,8 +178,8 @@ class _ItemColumn extends StatelessWidget {
           ],
         ),
         const Gap(6),
-        Align(
-          alignment: Alignment.center,
+        Padding(
+          padding: const EdgeInsets.only(left: 4),
           child: CustomText(
             text: description,
             fontSize: 14,

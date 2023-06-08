@@ -1,6 +1,10 @@
 import 'package:candlesticks/candlesticks.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sissyphus/models/kline_candle.dart';
 import 'package:sissyphus/presentation/theme/palette.dart';
+import 'package:sissyphus/presentation/views/chart/charts_view_model.dart';
+import 'package:sissyphus/presentation/widgets/reactive_builder.dart';
 
 class FullChartsView extends StatelessWidget {
   const FullChartsView({super.key});
@@ -19,27 +23,27 @@ class FullChartsView extends StatelessWidget {
       ),
       body: SafeArea(
         child: SizedBox.expand(
-          child: Candlesticks(
-            candles: List.generate(
-              18,
-              (index) => index < 13
-                  ? Candle(
-                      date: DateTime.now(),
-                      high: 0,
-                      low: 0,
-                      open: 0,
-                      close: 0,
-                      volume: 0,
-                    )
-                  : Candle(
-                      date: DateTime.now(),
-                      high: 23,
-                      low: 12,
-                      open: 12,
-                      close: 20,
-                      volume: 100,
-                    ),
-            ),
+          child: Consumer(
+            builder: (context, ref, _) {
+              return ReactiveBuilder<List<KlineCandle>>(
+                  value: ref.read(chartsViewModelProvider).candles,
+                  builder: (candles) {
+                    return Candlesticks(
+                      candles: List<Candle>.from(
+                        candles.map(
+                          (e) => Candle(
+                            date: e.date,
+                            high: e.high,
+                            low: e.low,
+                            open: e.open,
+                            close: e.close,
+                            volume: e.volume,
+                          ),
+                        ),
+                      ),
+                    );
+                  });
+            },
           ),
         ),
       ),

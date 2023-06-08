@@ -7,7 +7,7 @@ import 'package:sissyphus/utils/logger.dart';
 
 class SocketService {
   SocketService() {
-    _setup();
+    _init();
   }
 
   late final _logger = Logger(SocketService);
@@ -17,14 +17,13 @@ class SocketService {
   int _retryCount = 0;
   static const _maxRetries = 5;
 
-  void _setup() async {
-    Random r = Random();
-    String key = base64.encode(List<int>.generate(8, (_) => r.nextInt(256)));
+  void _init() async {
+    String key =
+        base64.encode(List<int>.generate(8, (_) => _random.nextInt(256)));
 
-    HttpClient client = HttpClient();
+    final client = HttpClient();
 
-    HttpClientRequest request =
-        await client.getUrl(Uri.parse(AppStrings.socketUrl));
+    final request = await client.getUrl(Uri.parse(AppStrings.socketUrl));
 
     request.headers.add('Connection', 'upgrade');
     request.headers.add('Upgrade', 'websocket');
@@ -33,17 +32,17 @@ class SocketService {
 
     _logger.log("Set headers");
 
-    HttpClientResponse response = await request.close();
+    final response = await request.close();
 
     _logger.log("Got response -> ${response.statusCode} ${response.headers}");
 
     if (response.statusCode != 101) {
       _retryCount++;
-      if (_retryCount < _maxRetries) _setup();
+      if (_retryCount < _maxRetries) _init();
       return;
     }
 
-    Socket socket = await response.detachSocket();
+    final socket = await response.detachSocket();
 
     _socket = WebSocket.fromUpgradedSocket(
       socket,
@@ -117,5 +116,6 @@ class SocketService {
 
   void dispose() {
     _socket?.close();
+    _timer?.cancel();
   }
 }
