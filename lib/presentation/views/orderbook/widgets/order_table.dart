@@ -4,7 +4,7 @@ import 'package:sissyphus/presentation/theme/palette.dart';
 import 'package:sissyphus/presentation/widgets/custom_text.dart';
 
 class OrderTable extends StatelessWidget {
-  final List<Order> orders;
+  final Iterable<Order> orders;
 
   const OrderTable({
     super.key,

@@ -2,12 +2,11 @@ import 'dart:convert';
 import 'dart:async' show Timer;
 import 'dart:io';
 import 'dart:math' show Random;
+import 'package:sissyphus/utils/app_strings.dart';
 import 'package:sissyphus/utils/logger.dart';
 
 class SocketService {
-  final String baseUrl;
-
-  SocketService(this.baseUrl) {
+  SocketService() {
     _setup();
   }
 
@@ -24,7 +23,8 @@ class SocketService {
 
     HttpClient client = HttpClient();
 
-    HttpClientRequest request = await client.getUrl(Uri.parse(baseUrl));
+    HttpClientRequest request =
+        await client.getUrl(Uri.parse(AppStrings.socketUrl));
 
     request.headers.add('Connection', 'upgrade');
     request.headers.add('Upgrade', 'websocket');

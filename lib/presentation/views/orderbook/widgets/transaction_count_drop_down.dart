@@ -4,9 +4,9 @@ import 'package:sissyphus/presentation/theme/palette.dart';
 import 'package:sissyphus/presentation/widgets/custom_icon.dart';
 import 'package:sissyphus/presentation/widgets/custom_text.dart';
 
-class TransactionCountDropDown extends StatefulWidget {
-  final List<int> counts;
-  final Function(String) onChanged;
+class TransactionCountDropDown<T> extends StatefulWidget {
+  final List<T> counts;
+  final Function(T) onChanged;
 
   const TransactionCountDropDown({
     super.key,
@@ -15,12 +15,13 @@ class TransactionCountDropDown extends StatefulWidget {
   });
 
   @override
-  State<TransactionCountDropDown> createState() =>
-      _TransactionCountDropDownState();
+  State<TransactionCountDropDown<T>> createState() =>
+      _TransactionCountDropDownState<T>();
 }
 
-class _TransactionCountDropDownState extends State<TransactionCountDropDown> {
-  int? _selected;
+class _TransactionCountDropDownState<T>
+    extends State<TransactionCountDropDown<T>> {
+  T? _selected;
 
   @override
   void initState() {
@@ -37,7 +38,7 @@ class _TransactionCountDropDownState extends State<TransactionCountDropDown> {
         color: Theme.of(context).extension<Palette>()!.dropDownBackgroundColor,
         borderRadius: BorderRadius.circular(4),
       ),
-      child: DropdownButton<int>(
+      child: DropdownButton<T>(
         underline: const SizedBox(),
         icon: Padding(
           padding: const EdgeInsets.only(left: 8, right: 4),
@@ -61,6 +62,10 @@ class _TransactionCountDropDownState extends State<TransactionCountDropDown> {
             )
         ],
         onChanged: (value) {
+          if (value != null) {
+            widget.onChanged.call(value);
+          }
+
           setState(() {
             _selected = value;
           });
