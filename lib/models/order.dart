@@ -1,3 +1,5 @@
+import 'package:sissyphus/utils/parser_util.dart';
+
 class Order {
   late final String price;
   late final String amount;
@@ -10,41 +12,19 @@ class Order {
     required String total,
     required this.isBuy,
   }) {
-    this.price = _takeSevenDigits(price);
-    this.amount = _takeSevenDigits(amount);
-    this.total = _takeSevenDigits(total);
+    this.price = ParserUtil.clampDigits(price);
+    this.amount = ParserUtil.clampDigits(amount);
+    this.total = ParserUtil.clampDigits(total);
   }
 
   factory Order.fromJson(Map<String, dynamic> json) {
     final priceValue = double.tryParse(json["p"]) ?? 0;
     final amountValue = double.tryParse(json["q"]) ?? 0;
     return Order(
-      price: _takeSevenDigits(json["p"]),
-      amount: _takeSevenDigits(json["q"]),
-      total: _takeSevenDigits((priceValue * amountValue).toString()),
+      price: ParserUtil.clampDigits(json["p"]),
+      amount: ParserUtil.clampDigits(json["q"]),
+      total: ParserUtil.clampDigits((priceValue * amountValue).toString()),
       isBuy: json["m"] ?? false,
     );
-  }
-
-  static String _takeSevenDigits(String value) {
-    try {
-      final split = value.split('');
-      String result = "";
-
-      final splitLength = split.length;
-
-      int length = 0;
-      int index = 0;
-      while (length < 7 && index <= splitLength - 1) {
-        if (int.tryParse(split[index]) != null) {
-          length++;
-        }
-        result += split[index];
-        index++;
-      }
-      return result;
-    } catch (e) {
-      return value;
-    }
   }
 }

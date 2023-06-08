@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:sissyphus/presentation/app_assets.dart';
 import 'package:sissyphus/presentation/theme/palette.dart';
+import 'package:sissyphus/presentation/views/trade_details/trade_details_view_model.dart';
 import 'package:sissyphus/presentation/widgets/custom_icon.dart';
 import 'package:sissyphus/presentation/widgets/custom_text.dart';
+import 'package:sissyphus/presentation/widgets/reactive_builder.dart';
 
 class CoinPairHeader extends StatelessWidget {
   const CoinPairHeader({super.key});
@@ -11,69 +14,83 @@ class CoinPairHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final palette = Theme.of(context).extension<Palette>()!;
-    return Container(
-      padding: const EdgeInsets.only(top: 24, left: 16, right: 16, bottom: 16),
-      color: palette.cardColor,
-      child: Column(
-        children: [
-          Row(
-            children: [
-              const _CoinPairIcons(),
-              const Gap(8),
-              const CustomText(
-                text: "BTC/USDT",
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
+    return Consumer(builder: (context, ref, _) {
+      return ReactiveBuilder(
+          value: ref.read(tradeDetailsViewModelProvider).tradeData,
+          builder: (tradeData) {
+            return Container(
+              padding: const EdgeInsets.only(
+                top: 24,
+                left: 16,
+                right: 16,
+                bottom: 16,
               ),
-              const Gap(16),
-              CustomIcon(
-                iconPath: AppAssets.dropDown,
-                width: 10,
-                height: 9,
-                color: Theme.of(context).colorScheme.primary,
+              color: palette.cardColor,
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      const _CoinPairIcons(),
+                      const Gap(8),
+                      CustomText(
+                        text: tradeData.symbol,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      const Gap(16),
+                      CustomIcon(
+                        iconPath: AppAssets.dropDown,
+                        width: 10,
+                        height: 9,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      const Gap(16),
+                      CustomText(
+                        text: "\$${tradeData.currentPrice}",
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                        color: palette.candleStickGainColor,
+                      ),
+                    ],
+                  ),
+                  const Gap(20),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: 42,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        _ItemColumn(
+                          icon: AppAssets.clock,
+                          label: "24h change",
+                          description:
+                              "${tradeData.priceChangeIn24H.toStringAsFixed(2)} ${tradeData.isPriceChangeIn24HNeg ? '-' : '+'} ${tradeData.percentageChangeIn24H.toStringAsFixed(2)}%",
+                          color: tradeData.isPriceChangeIn24HNeg
+                              ? palette.candleStickLossColor
+                              : palette.candleStickGainColor,
+                        ),
+                        const _Divider(),
+                        _ItemColumn(
+                          icon: AppAssets.arrowUp,
+                          label: "24h high",
+                          description: tradeData.highPrice,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                        const _Divider(),
+                        _ItemColumn(
+                          icon: AppAssets.arrowDown,
+                          label: "24h low",
+                          description: tradeData.lowPrice,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              const Gap(16),
-              CustomText(
-                text: "\$20,634",
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-                color: palette.candleStickGainColor,
-              ),
-            ],
-          ),
-          const Gap(20),
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: 42,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: [
-                _ItemColumn(
-                  icon: AppAssets.clock,
-                  label: "24h change",
-                  description: "520.80 +1.25%",
-                  color: palette.candleStickGainColor,
-                ),
-                const _Divider(),
-                _ItemColumn(
-                  icon: AppAssets.arrowUp,
-                  label: "24h high",
-                  description: "520.80 +1.25%",
-                  color: palette.candleStickGainColor,
-                ),
-                const _Divider(),
-                _ItemColumn(
-                  icon: AppAssets.arrowDown,
-                  label: "24h low",
-                  description: "520.80 +1.25%",
-                  color: palette.candleStickGainColor,
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
+            );
+          });
+    });
   }
 }
 
@@ -144,7 +161,6 @@ class _ItemColumn extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             CustomIcon(
               iconPath: icon,
@@ -162,11 +178,14 @@ class _ItemColumn extends StatelessWidget {
           ],
         ),
         const Gap(6),
-        CustomText(
-          text: description,
-          fontSize: 14,
-          fontWeight: FontWeight.w500,
-          color: color ?? Theme.of(context).colorScheme.primary,
+        Align(
+          alignment: Alignment.center,
+          child: CustomText(
+            text: description,
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: color ?? Theme.of(context).colorScheme.primary,
+          ),
         ),
       ],
     );
