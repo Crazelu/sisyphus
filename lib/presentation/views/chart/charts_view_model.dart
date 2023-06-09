@@ -12,7 +12,7 @@ final chartsViewModelProvider = Provider<ChartsViewModel>(
 
 class ChartsViewModel {
   ChartsViewModel() {
-    // _init();
+    _init();
   }
 
   late final _logger = Logger(ChartsViewModel);

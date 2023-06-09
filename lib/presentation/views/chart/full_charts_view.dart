@@ -5,6 +5,7 @@ import 'package:sissyphus/models/kline_candle.dart';
 import 'package:sissyphus/presentation/theme/palette.dart';
 import 'package:sissyphus/presentation/views/chart/charts_view_model.dart';
 import 'package:sissyphus/presentation/widgets/reactive_builder.dart';
+import 'package:sissyphus/utils/app_strings.dart';
 
 class FullChartsView extends StatelessWidget {
   const FullChartsView({super.key});
@@ -30,6 +31,7 @@ class FullChartsView extends StatelessWidget {
                   builder: (candles) {
                     if (candles.length < 14) return const SizedBox();
                     return Candlesticks(
+                      symbol: AppStrings.symbol,
                       candles: List<Candle>.from(
                         candles.map(
                           (e) => Candle(

@@ -7,7 +7,7 @@ class KlineRepository {
   Future<List<KlineCandle>> fetchOlderCandles({
     required String symbol,
     required String interval,
-    int limit = 400,
+    int limit = 500,
     DateTime? endTime,
   }) async {
     String path =

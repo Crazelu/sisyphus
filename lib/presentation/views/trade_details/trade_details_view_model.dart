@@ -10,7 +10,7 @@ final tradeDetailsViewModelProvider = Provider<TradeDetailsViewModel>(
 
 class TradeDetailsViewModel {
   TradeDetailsViewModel() {
-    // _init();
+    _init();
   }
 
   late final _socketService = SocketService();

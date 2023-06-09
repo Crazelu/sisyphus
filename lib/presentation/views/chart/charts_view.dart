@@ -9,6 +9,7 @@ import 'package:sissyphus/presentation/views/chart/full_charts_view.dart';
 import 'package:sissyphus/presentation/views/chart/widgets/trade_duration_list_view.dart';
 import 'package:sissyphus/presentation/widgets/custom_icon.dart';
 import 'package:sissyphus/presentation/widgets/reactive_builder.dart';
+import 'package:sissyphus/utils/app_strings.dart';
 
 class ChartsView extends StatelessWidget {
   const ChartsView({super.key});
@@ -54,6 +55,7 @@ class ChartsView extends StatelessWidget {
                         child: candles.length < 14
                             ? const SizedBox()
                             : Candlesticks(
+                                symbol: AppStrings.symbol,
                                 candles: List<Candle>.from(
                                   candles.map(
                                     (e) => Candle(

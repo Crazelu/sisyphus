@@ -13,7 +13,8 @@ dependencies:
   flutter:
     sdk: flutter
   gap: ^3.0.0
-  candlesticks: ^2.1.0
+  candlesticks: 
+    path: candlesticks
   flutter_riverpod: ^2.3.6
   http: ^1.0.0
 
