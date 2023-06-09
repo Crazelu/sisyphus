@@ -39,6 +39,7 @@ class _TransactionCountDropDownState<T>
         borderRadius: BorderRadius.circular(4),
       ),
       child: DropdownButton<T>(
+        dropdownColor: Theme.of(context).extension<Palette>()!.cardColor,
         underline: const SizedBox(),
         icon: Padding(
           padding: const EdgeInsets.only(left: 8, right: 4),

@@ -6,8 +6,8 @@ class ColumnHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: const [
+    return const Row(
+      children: [
         Expanded(
           child: _ColumnItem(
             title: "Price",
