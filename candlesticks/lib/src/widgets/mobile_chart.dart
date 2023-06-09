@@ -126,7 +126,7 @@ class _MobileChartState extends State<MobileChart> {
         // calculate highest volume
         double volumeHigh = 0;
         for (int i = candlesStartIndex; i <= candlesEndIndex; i++) {
-          volumeHigh = max(widget.candles[i].volume, volumeHigh);
+          volumeHigh = max(widget.candles[i].baseAssetVolume, volumeHigh);
         }
 
         if (longPressX != null && longPressY != null) {
@@ -220,10 +220,6 @@ class _MobileChartState extends State<MobileChart> {
                                               ma7: widget.ma7,
                                               ma25: widget.ma25,
                                               ma99: widget.ma99,
-                                              // bearColor:
-                                              //     Theme.of(context).primaryRed,
-                                              // bullColor: Theme.of(context)
-                                              //     .primaryGreen,
                                             ),
                                           ),
                                         ),
@@ -257,8 +253,9 @@ class _MobileChartState extends State<MobileChart> {
                                         candles: widget.candles,
                                         barWidth: widget.candleWidth,
                                         index: widget.index,
-                                        high:
-                                            HelperFunctions.getRoof(volumeHigh),
+                                        high: HelperFunctions.getRoof(
+                                                volumeHigh) +
+                                            2600,
                                         bearColor:
                                             Theme.of(context).secondaryRed,
                                         bullColor:
@@ -366,6 +363,48 @@ class _MobileChartState extends State<MobileChart> {
                                       widget.candleWidth *
                                       widget.candleWidth +
                                   PRICE_BAR_WIDTH,
+                            )
+                          : Container(),
+                      currentCandle != null
+                          ? Positioned(
+                              bottom:
+                                  HelperFunctions.getRoof(volumeHigh) * .015,
+                              child: RichText(
+                                text: TextSpan(
+                                  text:
+                                      "   Vol(${widget.symbol.split("/").first}): ",
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.w500,
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text:
+                                          " ${HelperFunctions.addMetricPrefix(currentCandle.baseAssetVolume)}",
+                                      style: TextStyle(
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w500,
+                                        color: Theme.of(context).primaryRed,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text:
+                                          " Vol(${widget.symbol.split("/").last}): ",
+                                    ),
+                                    TextSpan(
+                                      text:
+                                          " ${HelperFunctions.addMetricPrefix(currentCandle.quoteAssetVolume)}",
+                                      style: TextStyle(
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w500,
+                                        color: Theme.of(context).primaryRed,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             )
                           : Container(),
                       Padding(

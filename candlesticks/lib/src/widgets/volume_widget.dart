@@ -96,7 +96,7 @@ class VolumeRenderObject extends RenderBox {
     double x = size.width + offset.dx - (index + 0.5) * _barWidth;
 
     context.canvas.drawLine(
-        Offset(x + 1, offset.dy - 1 + (_high - candle.volume) / range),
+        Offset(x + 1, offset.dy - 1 + (_high - candle.baseAssetVolume) / range),
         Offset(x + 1, offset.dy + size.height + 1),
         Paint()
           ..color = (_bullBorderColor == null || _bearBorderColor == null)
@@ -107,7 +107,7 @@ class VolumeRenderObject extends RenderBox {
           ..strokeWidth = _barWidth - 1);
 
     context.canvas.drawLine(
-        Offset(x - 1, offset.dy - 1 + (_high - candle.volume) / range),
+        Offset(x - 1, offset.dy - 1 + (_high - candle.baseAssetVolume) / range),
         Offset(x - 1, offset.dy + size.height + 1),
         Paint()
           ..color = (_bullBorderColor == null || _bearBorderColor == null)
@@ -118,7 +118,7 @@ class VolumeRenderObject extends RenderBox {
           ..strokeWidth = _barWidth - 1);
 
     context.canvas.drawLine(
-        Offset(x, offset.dy + (_high - candle.volume) / range),
+        Offset(x, offset.dy + (_high - candle.baseAssetVolume) / range),
         Offset(x, offset.dy + size.height),
         Paint()
           ..color = color

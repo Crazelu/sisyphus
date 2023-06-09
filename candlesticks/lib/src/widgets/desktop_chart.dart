@@ -169,7 +169,7 @@ class _DesktopChartState extends State<DesktopChart> {
         // calculate highest volume
         double volumeHigh = 0;
         for (int i = candlesStartIndex; i <= candlesEndIndex; i++) {
-          volumeHigh = max(widget.candles[i].volume, volumeHigh);
+          volumeHigh = max(widget.candles[i].baseAssetVolume, volumeHigh);
         }
 
         return TweenAnimationBuilder(

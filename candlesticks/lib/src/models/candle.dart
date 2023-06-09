@@ -23,7 +23,9 @@ class Candle {
 
   /// Volume is the number of shares of a
   /// security traded during a given period of time.
-  final double volume;
+  final double baseAssetVolume;
+
+  final double quoteAssetVolume;
 
   double? ma7, ma25, ma99;
 
@@ -43,7 +45,8 @@ class Candle {
     required this.low,
     required this.open,
     required this.close,
-    required this.volume,
+    required this.baseAssetVolume,
+    required this.quoteAssetVolume,
   });
 
   Candle.fromJson(List<dynamic> json)
@@ -52,5 +55,6 @@ class Candle {
         low = double.parse(json[3]),
         open = double.parse(json[1]),
         close = double.parse(json[4]),
-        volume = double.parse(json[5]);
+        baseAssetVolume = double.parse(json[5]),
+        quoteAssetVolume = double.parse(json[7]);
 }

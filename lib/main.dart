@@ -4,6 +4,6 @@ import 'package:sissyphus/app.dart';
 import 'package:sissyphus/utils/logger.dart';
 
 void main() {
-  LoggerConfig.disableLogs();
+  // LoggerConfig.disableLogs();
   runApp(const ProviderScope(child: SissyphusApp()));
 }
