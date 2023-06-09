@@ -65,137 +65,140 @@ class _TradeModalState extends State<TradeModal> {
             color: palette.modalBorderColor,
           ),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Gap(16),
-            CustomTabBar(
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-              tabs: const ["Buy", "Sell"],
-              selectedTabBorderColor: palette.buyButtonColor,
-              index: _tabIndex,
-              onChanged: _setTabIndex,
-            ),
-            const Gap(16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CustomChip(
-                  width: 56,
-                  label: "Limit",
-                  fontWeight: FontWeight.w700,
-                  disableWidth: true,
-                  selected: _chipIndex == 0,
-                  onPressed: (_) {
-                    _setChipIndex(0);
-                  },
-                ),
-                CustomChip(
-                  width: 64,
-                  label: "Market",
-                  fontWeight: FontWeight.w700,
-                  disableWidth: true,
-                  selected: _chipIndex == 1,
-                  onPressed: (_) {
-                    _setChipIndex(1);
-                  },
-                ),
-                CustomChip(
-                  width: 88,
-                  label: "Stop Limit",
-                  fontWeight: FontWeight.w700,
-                  disableWidth: true,
-                  selected: _chipIndex == 2,
-                  onPressed: (_) {
-                    _setChipIndex(2);
-                  },
-                ),
-              ],
-            ),
-            const Gap(16),
-            const _TextField(
-              prefix: Padding(
-                padding: EdgeInsets.only(left: 16),
-                child: _TextWithInfo("Limit price"),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Gap(16),
+              CustomTabBar(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                tabs: const ["Buy", "Sell"],
+                selectedTabBorderColor: palette.buyButtonColor,
+                index: _tabIndex,
+                onChanged: _setTabIndex,
               ),
-            ),
-            const Gap(16),
-            const _TextField(
-              prefix: Padding(
-                padding: EdgeInsets.only(left: 16),
-                child: _TextWithInfo("Amount"),
-              ),
-            ),
-            const Gap(16),
-            _TextField(
-              enabled: false,
-              prefix: const Padding(
-                padding: EdgeInsets.only(left: 16),
-                child: _TextWithInfo("Type"),
-              ),
-              suffix: DropdownButton(
-                dropdownColor: palette.modalBackgroundColor,
-                underline: const SizedBox(),
-                icon: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8) +
-                      const EdgeInsets.only(right: 4),
-                  child: CustomIcon(
-                    iconPath: AppAssets.dropDown,
-                    width: 8,
-                    height: 8,
+              const Gap(16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomChip(
+                    width: 56,
+                    label: "Limit",
+                    fontWeight: FontWeight.w700,
+                    disableWidth: true,
+                    selected: _chipIndex == 0,
+                    onPressed: (_) {
+                      _setChipIndex(0);
+                    },
                   ),
+                  CustomChip(
+                    width: 64,
+                    label: "Market",
+                    fontWeight: FontWeight.w700,
+                    disableWidth: true,
+                    selected: _chipIndex == 1,
+                    onPressed: (_) {
+                      _setChipIndex(1);
+                    },
+                  ),
+                  CustomChip(
+                    width: 88,
+                    label: "Stop Limit",
+                    fontWeight: FontWeight.w700,
+                    disableWidth: true,
+                    selected: _chipIndex == 2,
+                    onPressed: (_) {
+                      _setChipIndex(2);
+                    },
+                  ),
+                ],
+              ),
+              const Gap(16),
+              const _TextField(
+                prefix: Padding(
+                  padding: EdgeInsets.only(left: 16),
+                  child: _TextWithInfo("Limit price"),
                 ),
-                items: const [
-                  DropdownMenuItem(
-                    child: CustomText(
-                      text: "Good till cancelled",
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
+              ),
+              const Gap(16),
+              const _TextField(
+                prefix: Padding(
+                  padding: EdgeInsets.only(left: 16),
+                  child: _TextWithInfo("Amount"),
+                ),
+              ),
+              const Gap(16),
+              _TextField(
+                enabled: false,
+                prefix: const Padding(
+                  padding: EdgeInsets.only(left: 16),
+                  child: _TextWithInfo("Type"),
+                ),
+                suffix: DropdownButton(
+                  dropdownColor: palette.modalBackgroundColor,
+                  underline: const SizedBox(),
+                  icon: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8) +
+                        const EdgeInsets.only(right: 4),
+                    child: CustomIcon(
+                      iconPath: AppAssets.dropDown,
+                      width: 8,
+                      height: 8,
                     ),
                   ),
-                ],
-                onChanged: (_) {},
+                  items: const [
+                    DropdownMenuItem(
+                      child: CustomText(
+                        text: "Good till cancelled",
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                  onChanged: (_) {},
+                ),
               ),
-            ),
-            const Gap(16),
-            const Align(
-              alignment: Alignment.centerLeft,
-              child: Row(
+              const Gap(16),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  children: [
+                    _CheckBox(),
+                    Gap(8),
+                    _TextWithInfo("Post Only"),
+                  ],
+                ),
+              ),
+              const Gap(24),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _CheckBox(),
-                  Gap(8),
-                  _TextWithInfo("Post Only"),
+                  CustomText(
+                    text: "Total",
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                  CustomText(
+                    text: "0.00",
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
                 ],
               ),
-            ),
-            const Gap(24),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CustomText(
-                  text: "Total",
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
-                CustomText(
-                  text: "0.00",
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
-              ],
-            ),
-            const Gap(24),
-            GradientButton(buttonText: _tabIndex == 0 ? "Buy BTC" : "Sell BTC"),
-            const Gap(2),
-            const Divider(),
-            const Gap(16),
-            const _TotalAccountValueSection(),
-            const Gap(24),
-            CustomButton.deposit(onPressed: () {})
-          ],
+              const Gap(24),
+              GradientButton(
+                  buttonText: _tabIndex == 0 ? "Buy BTC" : "Sell BTC"),
+              const Gap(2),
+              const Divider(),
+              const Gap(16),
+              const _TotalAccountValueSection(),
+              const Gap(24),
+              CustomButton.deposit(onPressed: () {})
+            ],
+          ),
         ),
       ),
     );
