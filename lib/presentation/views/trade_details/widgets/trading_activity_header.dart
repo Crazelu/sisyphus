@@ -4,9 +4,11 @@ import 'package:sissyphus/presentation/theme/palette.dart';
 import 'package:sissyphus/presentation/widgets/custom_tab_bar.dart';
 
 class TradingActivityHeader extends StatefulWidget {
+  final int index;
   const TradingActivityHeader({
     super.key,
     required this.onTabChanged,
+    this.index = 0,
   });
 
   final Function(int) onTabChanged;
@@ -16,7 +18,7 @@ class TradingActivityHeader extends StatefulWidget {
 }
 
 class _TradingActivitySectionState extends State<TradingActivityHeader> {
-  int _index = 0;
+  late int _index = widget.index;
 
   void _setIndex(int value) {
     if (_index != value) {

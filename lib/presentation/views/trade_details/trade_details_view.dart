@@ -42,7 +42,7 @@ class _TradeDetailsViewState extends State<TradeDetailsView> {
             const Gap(8),
             const CoinPairHeader(),
             const Gap(12),
-            TradingActivityHeader(onTabChanged: _setTabIndex),
+            TradingActivityHeader(index: _tabIndex, onTabChanged: _setTabIndex),
             _ActivityView(activeIndex: _tabIndex),
             const Gap(4),
             const UserTradingActivitySection(),
