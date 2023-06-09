@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:sissyphus/presentation/theme/palette.dart';
 import 'package:sissyphus/presentation/views/orderbook/order_book_view.dart';
 import 'package:sissyphus/presentation/views/chart/charts_view.dart';
+import 'package:sissyphus/presentation/views/orderbook/order_book_view_model.dart';
 import 'package:sissyphus/presentation/views/trade_details/recent_trades_view.dart';
 import 'package:sissyphus/presentation/views/trade_details/widgets/app_bar.dart';
 import 'package:sissyphus/presentation/views/trade_details/widgets/coin_pair_header.dart';
@@ -25,6 +27,13 @@ class _TradeDetailsViewState extends State<TradeDetailsView> {
         _tabIndex = value;
       });
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() =>
+        ProviderScope.containerOf(context).read(orderBookViewModelProvider));
   }
 
   @override
