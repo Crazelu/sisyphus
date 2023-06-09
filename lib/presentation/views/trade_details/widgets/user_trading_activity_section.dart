@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:sissyphus/presentation/theme/palette.dart';
+import 'package:sissyphus/presentation/views/trade_details/widgets/trade_modal.dart';
 import 'package:sissyphus/presentation/widgets/custom_button.dart';
 import 'package:sissyphus/presentation/widgets/custom_tab_bar.dart';
 import 'package:sissyphus/presentation/widgets/custom_text.dart';
@@ -91,13 +92,27 @@ class _UserTradingActivitySectionState
             children: [
               Expanded(
                 child: CustomButton.buy(
-                  onPressed: () {},
+                  onPressed: () {
+                    showModalBottomSheet(
+                      isScrollControlled: true,
+                      backgroundColor: Colors.transparent,
+                      context: context,
+                      builder: (_) => const TradeModal(),
+                    );
+                  },
                 ),
               ),
               const Gap(12),
               Expanded(
                 child: CustomButton.sell(
-                  onPressed: () {},
+                  onPressed: () {
+                    showModalBottomSheet(
+                      isScrollControlled: true,
+                      backgroundColor: Colors.transparent,
+                      context: context,
+                      builder: (_) => const TradeModal(index: 1),
+                    );
+                  },
                 ),
               ),
             ],

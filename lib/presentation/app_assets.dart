@@ -18,4 +18,5 @@ class AppAssets {
   static String arrowUp = _getAssetPath("arrow_up");
   static String arrowDown = _getAssetPath("arrow_down");
   static String candleChart = _getAssetPath("candle_chart");
+  static String info = _getAssetPath("info");
 }

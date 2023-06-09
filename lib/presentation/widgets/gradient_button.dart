@@ -12,12 +12,20 @@ class GradientButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    double buttonHeight = 56;
     return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: 32,
+      width: width,
+      height: buttonHeight,
       child: TextButton(
+        style: ButtonStyle(
+            fixedSize: MaterialStateProperty.resolveWith(
+          (states) => Size(width, buttonHeight),
+        )),
         onPressed: onPressed,
         child: Ink(
+          width: width,
+          height: buttonHeight,
           decoration: BoxDecoration(
             gradient: const LinearGradient(
               colors: [
@@ -31,13 +39,15 @@ class GradientButton extends StatelessWidget {
             ),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Text(
-            buttonText,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
+          child: Center(
+            child: Text(
+              buttonText,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
         ),

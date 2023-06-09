@@ -7,6 +7,8 @@ class CustomTabBar extends StatelessWidget {
   final int index;
   final Function(int)? onChanged;
   final Color? selectedTabBorderColor;
+  final double? fontSize;
+  final FontWeight? fontWeight;
 
   const CustomTabBar({
     super.key,
@@ -14,6 +16,8 @@ class CustomTabBar extends StatelessWidget {
     this.index = 0,
     this.onChanged,
     this.selectedTabBorderColor,
+    this.fontSize,
+    this.fontWeight,
   });
 
   @override
@@ -44,7 +48,12 @@ class CustomTabBar extends StatelessWidget {
             addPadding: i != tabs.length - 1,
             borderColor: selectedTabBorderColor,
             onPressed: () => onChanged?.call(i),
-            minWidth: math.max(102, (width / tabs.length) * .92),
+            minWidth: math.max(
+              102,
+              (width / tabs.length) * (tabs.length > 2 ? .92 : 0.9),
+            ),
+            fontSize: fontSize,
+            fontWeight: fontWeight,
           );
         },
       ),
@@ -59,6 +68,8 @@ class _Tab extends StatelessWidget {
   final double minWidth;
   final Color? borderColor;
   final VoidCallback? onPressed;
+  final double? fontSize;
+  final FontWeight? fontWeight;
 
   const _Tab({
     super.key,
@@ -68,6 +79,8 @@ class _Tab extends StatelessWidget {
     this.minWidth = 102,
     this.borderColor,
     this.onPressed,
+    this.fontSize,
+    this.fontWeight,
   });
 
   @override
@@ -84,7 +97,11 @@ class _Tab extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           color: selected ? palette.selectedTabChipColor : Colors.transparent,
-          border: borderColor != null ? Border.all(color: borderColor!) : null,
+          border: selected
+              ? borderColor != null
+                  ? Border.all(color: borderColor!)
+                  : null
+              : null,
         ),
         child: Center(
           child: Text(
@@ -94,8 +111,8 @@ class _Tab extends StatelessWidget {
             softWrap: true,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
+              fontSize: fontSize ?? 14,
+              fontWeight: fontWeight ?? FontWeight.w700,
               color: selected
                   ? palette.selectedTabTextColor
                   : palette.unselectedTabTextColor,

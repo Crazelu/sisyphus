@@ -40,8 +40,8 @@ class CustomButton extends StatelessWidget {
 
   const CustomButton.deposit({
     super.key,
-    required this.buttonText,
     required this.onPressed,
+    this.buttonText = "Deposit",
     this.fontSize = 14,
     this.width = 80,
     this.height = 32,

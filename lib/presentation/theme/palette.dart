@@ -21,4 +21,7 @@ abstract class Palette extends ThemeExtension<Palette> {
   Color get filterLineColor;
   Color get popupMenuBackgroundColor;
   Color get popupMenuBorderColor;
+  Color get modalBackgroundColor;
+  Color get modalBorderColor;
+  Color get textFieldBorderColor;
 }

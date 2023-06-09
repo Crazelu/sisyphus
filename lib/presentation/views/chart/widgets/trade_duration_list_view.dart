@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:sissyphus/presentation/app_assets.dart';
-import 'package:sissyphus/presentation/theme/palette.dart';
 import 'package:sissyphus/presentation/views/chart/charts_view_model.dart';
+import 'package:sissyphus/presentation/widgets/custom_chip.dart';
 import 'package:sissyphus/presentation/widgets/custom_icon.dart';
 import 'package:sissyphus/presentation/widgets/custom_text.dart';
 
@@ -55,7 +55,7 @@ class _TradeDurationListViewState extends State<TradeDurationListView> {
           ),
           const Gap(2),
           for (final label in ref.read(chartsViewModelProvider).intervals)
-            _DurationChip(
+            CustomChip(
               label: label,
               selected: label == _selectedLabel,
               onPressed: _setSelectedLabel,
@@ -83,56 +83,12 @@ class _TradeDurationListViewState extends State<TradeDurationListView> {
             width: 10,
           ),
           const Gap(4),
-          const _DurationChip(
+          const CustomChip(
             label: "Fx Indicators",
             disableWidth: true,
           ),
         ],
       );
     });
-  }
-}
-
-class _DurationChip extends StatelessWidget {
-  final String label;
-  final Function(String)? onPressed;
-  final bool selected;
-  final bool disableWidth;
-  const _DurationChip({
-    super.key,
-    required this.label,
-    this.selected = false,
-    this.disableWidth = false,
-    this.onPressed,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final palette = Theme.of(context).extension<Palette>()!;
-    return GestureDetector(
-      behavior: HitTestBehavior.translucent,
-      onTap: () {
-        onPressed?.call(label);
-      },
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 4),
-        width: disableWidth ? null : 40,
-        height: 28,
-        decoration: BoxDecoration(
-          color: selected ? palette.selectedTimeChipColor : null,
-          borderRadius: selected ? BorderRadius.circular(100) : null,
-        ),
-        child: Center(
-          child: CustomText(
-            text: label,
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            color: selected
-                ? Theme.of(context).colorScheme.primary
-                : Theme.of(context).colorScheme.secondary,
-          ),
-        ),
-      ),
-    );
   }
 }

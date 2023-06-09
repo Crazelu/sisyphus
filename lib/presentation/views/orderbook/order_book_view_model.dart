@@ -13,7 +13,7 @@ class OrderBookViewModel {
   final ProviderRef _ref;
 
   OrderBookViewModel(this._ref) {
-    _init();
+    // _init();
   }
 
   late final _socketService = SocketService();

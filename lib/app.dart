@@ -24,6 +24,10 @@ class SissyphusApp extends StatelessWidget {
                 DarkVolumeBarTheme(),
               },
               primarySwatch: Colors.grey,
+              textSelectionTheme: const TextSelectionThemeData(
+                cursorColor: Color(0xffFFFFFF),
+                selectionColor: Colors.red,
+              ),
               scaffoldBackgroundColor: const Color(0xff262932),
               colorScheme: const ColorScheme.dark(
                 primary: Color(0xffFFFFFF),
@@ -38,6 +42,10 @@ class SissyphusApp extends StatelessWidget {
                 LightVolumeBarTheme(),
               },
               primarySwatch: Colors.grey,
+              textSelectionTheme: const TextSelectionThemeData(
+                cursorColor: Color(0xff1C2127),
+                selectionColor: Colors.red,
+              ),
               scaffoldBackgroundColor: const Color(0xfff8f8f9),
               colorScheme: const ColorScheme.light(
                 primary: Color(0xff1C2127),
